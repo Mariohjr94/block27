@@ -1,7 +1,9 @@
 import { useState } from "react";
 
-const SingUpForm = () => {
-  const [userName, setUsername] = useState("");
+const API_URL = "https://fsa-jwt-practice.herokuapp.com/signup";
+
+const SingUpForm = ({ setToken }) => {
+  const [username, setUsername] = useState("");
   const [password, setPasword] = useState("");
   const [error, setError] = useState(null);
 
@@ -15,21 +17,41 @@ const SingUpForm = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log("Hello");
+    try {
+      const response = await fetch(API_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username: username,
+          password: password,
+        }),
+      });
+
+      const data = await response.json();
+      console.log(data.token);
+      setToken(data.token);
+    } catch (e) {
+      setError(e.message);
+    }
   };
 
   return (
     <div>
       <h2>Sing Up</h2>
-      <form onSubmit={handleSubmit}>
+      {error && <p>{error}</p>}
+
+      <form className="singUpForm" onSubmit={handleSubmit}>
         <label>
           Username:{" "}
-          <input type="text" value={userName} onChange={handleUsernameChange} />
+          <input type="text" value={username} onChange={handleUsernameChange} />
         </label>
         <label>
           Password:{" "}
           <input type="text" value={password} onChange={handlePasswordChange} />
         </label>
+
         <button type="submit">Submit</button>
       </form>
     </div>

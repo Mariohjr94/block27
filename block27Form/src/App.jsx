@@ -4,12 +4,12 @@ import SingUpForm from "./components/SingUpForm";
 import Authenitcate from "./components/Authenitcate";
 
 function App() {
-  // const [count, setCount] = useState(0);
+  const [token, setToken] = useState(null);
 
   return (
     <>
-      <SingUpForm />
-      <Authenitcate />
+      <SingUpForm token={token} setToken={setToken} />
+      <Authenitcate token={token} setToken={setToken} />
     </>
   );
 }

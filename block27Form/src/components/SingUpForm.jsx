@@ -45,11 +45,21 @@ const SingUpForm = ({ setToken }) => {
       <form className="singUpForm" onSubmit={handleSubmit}>
         <label>
           Username:{" "}
-          <input type="text" value={username} onChange={handleUsernameChange} />
+          <input
+            type="text"
+            value={username}
+            onChange={handleUsernameChange}
+            required
+          />
         </label>
         <label>
           Password:{" "}
-          <input type="text" value={password} onChange={handlePasswordChange} />
+          <input
+            type="text"
+            value={password}
+            onChange={handlePasswordChange}
+            required
+          />
         </label>
 
         <button type="submit">Submit</button>
